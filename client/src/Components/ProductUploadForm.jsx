@@ -14,6 +14,7 @@ const ProductUploadForm = () => {
   const navigate = useNavigate()
   const [inputErrors, setInputErrors] = useState({});
   const [imageError, setImageError] = useState('');
+  const [loading, setLoading]  = useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,14 +65,20 @@ const ProductUploadForm = () => {
       return;
     }
 
+    setLoading(true)
     const imageUrl = await uploadToCDN(product.images);
     product.images = imageUrl;
     const addProductToServer = await addProduct(product);
+    setLoading(false)
     if(addProductToServer) toast.success('product Added Successfully')
     navigate('/')
   };
 
   return (
+    <>
+      {loading && <div className="fixed top-0 left-0 w-screen h-screen flex justify-center items-center bg-gray-500 bg-opacity-50 z-50">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
+    </div>}
     <div className="flex justify-center items-center h-screen">
       <div className="bg-white rounded-lg shadow-md p-6 max-w-md w-full bg-cyan-50">
         <h1 className="text-2xl font-semibold text-gray-800 mb-4">Upload a Product</h1>
@@ -159,6 +166,7 @@ const ProductUploadForm = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 

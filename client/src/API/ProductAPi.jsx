@@ -22,11 +22,8 @@ export const uploadToCDN = async (value) => {
       const response = await axios.post("https://api.cloudinary.com/v1_1/dg047twga/image/upload",data);
       return response.data.url;
     };
-    toast.loading('Uploading Your Images')
-    // Use Promise.all to upload all images concurrently
     const uploadPromises = value.map(uploadImage);
     const imageUrls = await Promise.all(uploadPromises);
-    toast.dismiss()
     return imageUrls;
   } catch (error) {
     console.log(error)
