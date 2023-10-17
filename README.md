@@ -5,6 +5,7 @@ HERE ARE THE STEPS TO RUN THIS :
 * cd client
 * npm install
 * npm run dev
+* Remember If you want to use the pagination feature you must add more than 8 products
 
 ---------------------------------------------------------Server Side---------------------------------------------------
   * cd server
