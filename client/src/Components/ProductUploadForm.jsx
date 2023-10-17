@@ -67,8 +67,8 @@ const ProductUploadForm = () => {
     const imageUrl = await uploadToCDN(product.images);
     product.images = imageUrl;
     const addProductToServer = await addProduct(product);
-    navigate('/')
     if(addProductToServer) toast.success('product Added Successfully')
+    navigate('/')
   };
 
   return (
