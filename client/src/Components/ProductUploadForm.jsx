@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { addProduct, uploadToCDN } from '../API/ProductAPi';
 import toast from 'react-hot-toast';
-
+import { useNavigate } from 'react-router-dom';
 const ProductUploadForm = () => {
   const [product, setProduct] = useState({
     name: '',
@@ -10,6 +10,8 @@ const ProductUploadForm = () => {
     price: '', // Add a price field
   });
 
+
+  const navigate = useNavigate()
   const [inputErrors, setInputErrors] = useState({});
   const [imageError, setImageError] = useState('');
 
@@ -65,6 +67,7 @@ const ProductUploadForm = () => {
     const imageUrl = await uploadToCDN(product.images);
     product.images = imageUrl;
     const addProductToServer = await addProduct(product);
+    navigate('/')
     if(addProductToServer) toast.success('product Added Successfully')
   };
 
